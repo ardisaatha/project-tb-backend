@@ -14,8 +14,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   locations.init({
-    nama: DataTypes.STRING,
-    jumlah_kasus: DataTypes.INTEGER
+    no: DataTypes.INTEGER,
+    kc: DataTypes.STRING,
+    kecamatan: DataTypes.STRING,
+    kd: DataTypes.STRING,
+    kelurahan: DataTypes.STRING,
+    wilayah: DataTypes.STRING,
+    kode_puskesmas: DataTypes.STRING,
+    kasus_aktif: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'locations',

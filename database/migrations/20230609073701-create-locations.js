@@ -9,10 +9,28 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      nama: {
+      no: {
+        type: Sequelize.INTEGER
+      },
+      kc: {
         type: Sequelize.STRING
       },
-      jumlah_kasus: {
+      kecamatan: {
+        type: Sequelize.STRING
+      },
+      kd: {
+        type: Sequelize.STRING
+      },
+      kelurahan: {
+        type: Sequelize.STRING
+      },
+      wilayah: {
+        type: Sequelize.STRING
+      },
+      kode_puskesmas: {
+        type: Sequelize.STRING
+      },
+      kasus_aktif: {
         type: Sequelize.INTEGER
       },
       createdAt: {
