@@ -4,5 +4,6 @@ const pas = require("../../app/controllers/pasienController")
 
 router.get("/", pas.getAllPasien)
 router.get("/:id", pas.getPasienById)
+router.get("/kel/:id", pas.getPasienByIdKel)
 
 module.exports = router
