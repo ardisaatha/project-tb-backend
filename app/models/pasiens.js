@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       // this.belongsTo(models.kelurahan, {
       //   foreignKey: "kecamatan_pasien",
       // });
-      this.hasOne(models.tb_record, { foreignKey: "kode_pasien" });
+      this.hasOne(models.tb_record, { foreignKey: "id" });
     }
   }
   pasiens.init(
