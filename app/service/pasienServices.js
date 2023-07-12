@@ -2,12 +2,19 @@
 // const ApiError = require("../../utils/ApiError");
 const pasienRepository = require("../repositories/pasienRepository");
 
-const getAllPasien = async (id) => {
+const getAllPasien = async () => {
   return await pasienRepository.getAllPasien();
 };
 
 const getPasienById = async (id) => {
   const pas = await pasienRepository.getPasienById(id);
+  if (pas.dataValues.jenis_kelamin == "L") {
+     pas.dataValues.jenis_kelamin = "laki-laki"
+     return pas
+  } if (pas.dataValues.jenis_kelamin == "P"){
+     pas.dataValues.jenis_kelamin = "Perempuan"
+     return pas
+  } 
   if (!pas) {
     throw new ApiError(httpStatus.NOT_FOUND, "Pasien Not Found");
   } else {

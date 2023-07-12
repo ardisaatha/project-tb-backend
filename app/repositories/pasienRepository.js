@@ -18,10 +18,10 @@ const getAllPasien = async () => {
 };
 
 const getPasienById = async (id) => {
-  const find = await tb_record.findByPk(id, {
+  const find = await pasiens.findByPk(id, {
     include: [
       {
-        model: pasiens,
+        model: tb_record,
       },
     ],
   });
