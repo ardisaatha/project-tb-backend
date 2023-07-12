@@ -32,4 +32,20 @@ const getPasienById = (req, res, next) => {
     });
 };
 
-module.exports = { getAllPasien, getPasienById };
+const getPasienByIdKel = (req, res, next) => {
+  pasienServices
+    .getPasienByIdKel(req.params.id)
+    .then((pasien) => {
+      res.status(200).json({
+        status: "OK",
+        message: "Success",
+        totalData: pasien.length,
+        data: pasien,
+      });
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
+module.exports = { getAllPasien, getPasienById,getPasienByIdKel };
