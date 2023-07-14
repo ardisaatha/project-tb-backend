@@ -1,8 +1,4 @@
-const {
-  pasiens,
-  tb_record,
-  kelurahan
-} = require("../models");
+const { pasiens, tb_record, kelurahan } = require("../models");
 
 // mencari data sesuai username
 const getAllPasien = async () => {
@@ -30,18 +26,20 @@ const getPasienById = async (id) => {
 
 const getPasienByIdKel = async (kelurahan_pasien) => {
   const find = await pasiens.findAll({
-    where: 
-      {
-        kelurahan_pasien,
-      },
-    
+    where: {
+      kelurahan_pasien,
+    },
+
     include: [
       {
         model: tb_record,
       },
+      {
+        model: kelurahan,
+      },
     ],
   });
-  return find
+  return find;
 };
 
 module.exports = { getAllPasien, getPasienById, getPasienByIdKel };
