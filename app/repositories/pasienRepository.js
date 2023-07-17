@@ -19,6 +19,9 @@ const getPasienById = async (id) => {
       {
         model: tb_record,
       },
+      {
+        model: kelurahan
+      }
     ],
   });
   return find;
