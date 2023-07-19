@@ -40,15 +40,15 @@ const createUser = async (reqBody) => {
   await adminRepository.createUser(createUser);
 };
 
-// const getUserById = async (id) => {
-//   const user = await adminRepository.findUserById(id);
+const getUserById = async (id) => {
+  const user = await adminRepository.findUserById(id);
 
-//   if (!user) {
-//     throw new ApiError(httpStatus.NOT_FOUND, "airport not found");
-//   } else {
-//     return airport;
-//   }
-// };
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, "user not found");
+  } else {
+    return user;
+  }
+};
 
 const updateUser = async (reqBody, id) => {
     const { username, password } = reqBody;
@@ -100,4 +100,4 @@ const deleteUser = async (id) => {
     }
   };
 
-module.exports = { findAllUser, createUser, updateUser, deleteUser };
+module.exports = { findAllUser, createUser, updateUser, deleteUser, getUserById };
