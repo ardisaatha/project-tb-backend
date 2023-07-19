@@ -60,4 +60,19 @@ const deleteUser = (req, res, next) => {
     });
 };
 
-module.exports = { getAllUser, createUser, updateUser, deleteUser };
+const getUserById = (req, res, next) => {
+    adminServices
+      .getUserById(req.params.id)
+      .then((user) => {
+        res.status(200).json({
+          status: "OK",
+          message: "Success",
+          data: user,
+        });
+      })
+      .catch((err) => {
+        next(err);
+      });
+  };
+
+module.exports = { getAllUser, createUser, updateUser, deleteUser, getUserById };
