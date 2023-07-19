@@ -40,14 +40,5 @@ const login = async (reqBody) => {
   }
 };
 
-const findAllUser = async () => {
-  const user = await authRepository.findAllUser()
-  // const password = bcrypt.user.password
-  // console.log(user)
-  return {
-    username: user.username,
-    password: user.password
-  }
-}
 
-module.exports = { login, findAllUser };
+module.exports = { login };

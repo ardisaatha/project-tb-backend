@@ -22,6 +22,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       kelurahan_pasien: {
+        foreignKey: true,
         type: Sequelize.STRING
       },
       status_pekerjaan: {
