@@ -15,14 +15,13 @@ const login = (req, res, next) => {
     });
 };
 
-const getAllUser = (req, res, next) => {
+const loginAdmin = (req, res, next) => {
   authService
-    .findAllUser()
+    .loginAdmin(req.body)
     .then((user) => {
       res.status(200).json({
         status: "OK",
-        message: "Success",
-        // totalData: cases.length,
+        message: "Success Login Admin",
         data: user,
       });
     })
@@ -31,4 +30,4 @@ const getAllUser = (req, res, next) => {
     });
 };
 
-module.exports = { login, getAllUser };
+module.exports = { login, loginAdmin };

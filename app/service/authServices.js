@@ -40,5 +40,35 @@ const login = async (reqBody) => {
   }
 };
 
+const loginAdmin = async (reqBody) => {
+  const { username, password } = reqBody;
+  const user = await authRepository.findUser(username);
 
-module.exports = { login };
+  // check user
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, "user not found");
+  }
+
+  const isPasswordCorrect = verifyPassword(password, user.password);
+  if (user && isPasswordCorrect) {
+    if (user.role === "admin") {
+      const accessToken = createToken(user);
+      return {
+        id: user.id,
+        username: user.username,
+        role: user.role,
+        accessToken,
+      };
+    } else {
+      throw new ApiError(
+        httpStatus.BAD_REQUEST, "Only admin can access this page"
+      )
+    }
+  } else {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST, "Incorrect Password"
+    )
+  }
+};
+
+module.exports = { login, loginAdmin };
