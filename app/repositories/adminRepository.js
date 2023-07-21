@@ -1,8 +1,16 @@
+const { Op } = require("sequelize");
 const { users } = require("../models");
 
 // mengambil semua user
 const findAllUser = () => {
-  return users.findAll();
+  const find = users.findAll({
+    where: {
+      [Op.not]: [
+        {role: "admin"}
+      ]
+    }
+  })
+  return find
 };
 
 // membuat akun baru

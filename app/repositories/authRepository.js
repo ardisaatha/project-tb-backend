@@ -10,8 +10,4 @@ const findUser = (username) => {
   return find;
 };
 
-const findAllUser = () => {
-  return users.findAll();
-};
-
-module.exports = { findUser, findAllUser };
+module.exports = { findUser };
