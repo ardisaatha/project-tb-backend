@@ -1,4 +1,10 @@
-const { pasiens, kelurahan, sequelize, Sequelize } = require("../models");
+const {
+  pasiens,
+  pasienb,
+  kelurahan,
+  sequelize,
+  Sequelize,
+} = require("../models");
 
 // mencari data sesuai username
 const mapping = async () => {
@@ -6,11 +12,11 @@ const mapping = async () => {
     attributes: [
       "id",
       "nama_kelurahan",
-      [Sequelize.fn("COUNT", Sequelize.col("pasiens.id")), "jumlah_pasien"],
+      [Sequelize.fn("COUNT", Sequelize.col("pasienbs.id")), "jumlah_pasien"],
     ],
     include: [
       {
-        model: pasiens,
+        model: pasienb,
         attributes: [],
       },
     ],
@@ -20,14 +26,14 @@ const mapping = async () => {
 };
 
 const mapId = async (id) => {
-  const find = await kelurahan.findByPk(id,{
+  const find = await kelurahan.findByPk(id, {
     include: [
       {
-        model: pasiens,
+        model: pasienb,
       },
     ],
   });
-  return find
+  return find;
 };
 
 module.exports = { mapping, mapId };
