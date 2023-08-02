@@ -1,41 +1,52 @@
-const { pasiens, tb_record, kelurahan } = require("../models");
+const {
+  pasiens,
+  tb_record,
+  fasyankes,
+  kelurahan,
+  pasienb,
+} = require("../models");
 
 // mencari data sesuai username
 const getAllPasien = async () => {
-  const find = tb_record.findAll({
-    include: {
-      model: pasiens,
-    },
+  const find = pasienb.findAll({
     // include: {
-    //   model: fasyankes,
+    //   model: pasienb,
     // },
-  });
-  return find;
-};
-
-const getPasienById = async (id) => {
-  const find = await pasiens.findByPk(id, {
     include: [
       {
-        model: tb_record,
+        model: kelurahan,
       },
       {
-        model: kelurahan
-      }
+        model: fasyankes,
+      },
     ],
   });
   return find;
 };
 
-const getPasienByIdKel = async (kelurahan_pasien) => {
-  const find = await pasiens.findAll({
+const getPasienById = async (id) => {
+  const find = await pasienb.findByPk(id, {
+    include: [
+      {
+        model: fasyankes,
+      },
+      {
+        model: kelurahan,
+      },
+    ],
+  });
+  return find;
+};
+
+const getPasienByIdKel = async (id_kelurahan) => {
+  const find = await pasienb.findAll({
     where: {
-      kelurahan_pasien,
+      id_kelurahan,
     },
 
     include: [
       {
-        model: tb_record,
+        model: fasyankes,
       },
       {
         model: kelurahan,
