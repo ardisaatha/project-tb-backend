@@ -9,12 +9,13 @@ const getAllPasien = async () => {
 const getPasienById = async (id) => {
   const pas = await pasienRepository.getPasienById(id);
   if (pas.dataValues.jenis_kelamin == "L") {
-     pas.dataValues.jenis_kelamin = "laki-laki"
-     return pas
-  } if (pas.dataValues.jenis_kelamin == "P"){
-     pas.dataValues.jenis_kelamin = "Perempuan"
-     return pas
-  } 
+    pas.dataValues.jenis_kelamin = "laki-laki";
+    return pas;
+  }
+  if (pas.dataValues.jenis_kelamin == "P") {
+    pas.dataValues.jenis_kelamin = "Perempuan";
+    return pas;
+  }
   if (!pas) {
     throw new ApiError(httpStatus.NOT_FOUND, "Pasien Not Found");
   } else {
@@ -26,11 +27,12 @@ const getPasienByIdKel = async (id) => {
   const pas = await pasienRepository.getPasienByIdKel(id);
   pas.forEach((item) => {
     if (item.dataValues.jenis_kelamin == "L") {
-      return item.dataValues.jenis_kelamin = "laki-laki"
-    } if (item.dataValues.jenis_kelamin == "P"){
-      return item.dataValues.jenis_kelamin = "Perempuan"
+      return (item.dataValues.jenis_kelamin = "laki-laki");
+    }
+    if (item.dataValues.jenis_kelamin == "P") {
+      return (item.dataValues.jenis_kelamin = "Perempuan");
     } else {
-      return item.dataValues.jenis_kelamin = "-"
+      return (item.dataValues.jenis_kelamin = "-");
     }
   });
   if (!pas) {
@@ -40,4 +42,29 @@ const getPasienByIdKel = async (id) => {
   }
 };
 
-module.exports = { getAllPasien, getPasienById, getPasienByIdKel };
+const filterPasien = async (filter) => {
+  const { jenis_kelamin, id_kelurahan, id_fasyankes } = filter;
+  // if(jenis_kelamin) {
+  //   console.log("ini jenis kelamin")
+  //   return await pasienRepository.filterPasien(jenis_kelamin)
+  // } else {
+  // if(id_kelurahan) {
+  //   console.log("ini kelurahan")
+  //   return await pasienRepository.filterPasien(id_kelurahan)
+  // }
+  // // if(id_fasyankes) {
+  // //   return await pasienRepository.filterPasien(id_fasyankes)
+  // // }
+  return await pasienRepository.filterPasien(
+    jenis_kelamin,
+    id_kelurahan,
+    id_fasyankes
+  );
+};
+
+module.exports = {
+  getAllPasien,
+  getPasienById,
+  getPasienByIdKel,
+  filterPasien,
+};
