@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const {
   pasiens,
   tb_record,
@@ -56,4 +57,61 @@ const getPasienByIdKel = async (id_kelurahan) => {
   return find;
 };
 
-module.exports = { getAllPasien, getPasienById, getPasienByIdKel };
+const filterPasien = async (jenis_kelamin, id_kelurahan, id_fasyankes) => {
+  // const filter = await pasienb.findAll({
+  //   where: {
+  //     [Op.or]: [
+  //       {
+  //         jenis_kelamin: {
+  //           [Op.like]: `%${jenis_kelamin}%`,
+  //         },
+  //       },
+  //       {
+  //         id_kelurahan: {
+  //           [Op.like]: `${id_kelurahan}`,
+  //         },
+  //       },
+  //     ],
+  //   },
+  // });
+  const whereClause = {};
+
+  if (jenis_kelamin) {
+    whereClause.jenis_kelamin = {
+      [Op.like]: `%${jenis_kelamin}%`,
+    };
+  }
+
+  if (id_kelurahan) {
+    whereClause.id_kelurahan = {
+      [Op.like]: `${id_kelurahan}`,
+    };
+  }
+
+  if (id_fasyankes) {
+    whereClause.id_fasyankes = {
+      [Op.like]: `${id_fasyankes}`,
+    };
+  }
+
+  const filter = await pasienb.findAll({
+    where: whereClause,
+    include: [
+      {
+        model: fasyankes,
+      },
+      {
+        model: kelurahan,
+      },
+    ],
+  });
+  // console.log(filter)
+  return filter;
+};
+
+module.exports = {
+  getAllPasien,
+  getPasienById,
+  getPasienByIdKel,
+  filterPasien,
+};
