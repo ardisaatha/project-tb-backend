@@ -1,11 +1,11 @@
-const { locations } = require("../models");
+const { kelurahan } = require("../models");
 
 const getLocation = () => {
-  return locations.findAll();
+  return kelurahan.findAll();
 };
 
 const getLocationId = (id) => {
-  const find = locations.findOne({
+  const find = kelurahan.findOne({
     where: { id },
   });
   return find

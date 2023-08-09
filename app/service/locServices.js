@@ -9,7 +9,7 @@ const getAllLocation = async () => {
 const getLocationById = async (id) => {
   const cases = await locRepository.getLocationId(id);
   if (!cases) {
-    throw new ApiError(httpStatus.NOT_FOUND, "Locatin Not Found");
+    throw new ApiError(httpStatus.NOT_FOUND, "Kelurahan Not Found");
   } else {
     return cases;
   }
