@@ -57,7 +57,7 @@ const getPasienByIdKel = async (id_kelurahan) => {
   return find;
 };
 
-const filterPasien = async (jenis_kelamin, id_kelurahan, id_fasyankes) => {
+const filterPasien = async (tahun, jenis_kelamin, id_kelurahan, id_fasyankes) => {
   // const filter = await pasienb.findAll({
   //   where: {
   //     [Op.or]: [
@@ -79,6 +79,12 @@ const filterPasien = async (jenis_kelamin, id_kelurahan, id_fasyankes) => {
   if (jenis_kelamin) {
     whereClause.jenis_kelamin = {
       [Op.like]: `%${jenis_kelamin}%`,
+    };
+  }
+
+  if (tahun) {
+    whereClause.tahun = {
+      [Op.like]: `%${tahun}%`,
     };
   }
 
