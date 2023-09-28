@@ -3,6 +3,7 @@ const {
   pasienb,
   kelurahan,
   sequelize,
+  survei,
   Sequelize,
 } = require("../models");
 
@@ -28,6 +29,9 @@ const mapping = async () => {
 const mapId = async (id) => {
   const find = await kelurahan.findByPk(id, {
     include: [
+      {
+        model:survei
+      },
       {
         model: pasienb,
       },
