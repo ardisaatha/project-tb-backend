@@ -15,4 +15,8 @@ const mapId = async (id) => {
   }
 };
 
-module.exports = { mapping, mapId };
+const mappingFaskes = async () => {
+  return await mapRepository.mappingFaskes();
+};
+
+module.exports = { mapping, mapId, mappingFaskes };

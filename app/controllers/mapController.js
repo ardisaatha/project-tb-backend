@@ -33,4 +33,21 @@ const mapId = (req, res, next) => {
     });
 };
 
-module.exports = {mapping, mapId}
+const mappingFaskes = (req, res, next) => {
+  mapServices
+    .mappingFaskes()
+    .then((pasien) => {
+      res.status(200).json({
+        status: "OK",
+        message: "Success",
+        data: pasien,
+        // totalData: pasien.length,
+      });
+      // console.log(pasien)
+    })
+    .catch((err) => {
+      next(err);
+    });
+};
+
+module.exports = {mapping, mapId, mappingFaskes}
