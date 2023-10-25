@@ -2,11 +2,12 @@ const {
   pasiens,
   pasienb,
   kelurahan,
-  fasyankes,
+  puskesmas,
   sequelize,
   survei,
   Sequelize,
 } = require("../models");
+// const puskesmas = require("../models/puskesmas");
 
 const mapping = async () => {
   const find = kelurahan.findAll({
@@ -41,21 +42,7 @@ const mapId = async (id) => {
 };
 
 const mappingFaskes = async () => {
-  const find = fasyankes.findAll({
-    attributes: [
-      "id",
-      "nama_fasyankes",
-      [Sequelize.fn("COUNT", Sequelize.col("pasienbs.id")), "jumlah_pasien"],
-    ],
-    include: [
-      {
-        model: pasienb,
-        attributes: [],
-      },
-    ],
-    group: ["fasyankes.id"],
-  });
-  return find;
+  return await puskesmas.findAll()
 };
 
 module.exports = { mapping, mapId, mappingFaskes };
