@@ -5,7 +5,7 @@ const upload  = require('../../utils/upload');
 // const isAdmin = require("../../middlewares/isAdmin");
 
 // API
-router.post("/createNilai", penilaian.createNilai);
+router.post("/create", penilaian.createNilai);
 router.post('/upload', upload.single('file'), penilaian.uploadAndConvertToJSON);
 // router.get("/getUser", penilaian.getAllUser);
 // router.get("/getUser/:id", penilaian.getUserById);

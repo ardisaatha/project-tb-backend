@@ -1,11 +1,11 @@
-const { fasyankes } = require("../models");
+const { puskesmas } = require("../models");
 
-const getFasyankes = () => {
-  return fasyankes.findAll();
+const getFasyankes = async () => {
+  return await puskesmas.findAll()
 };
 
 const getFasyankesId = (id) => {
-  const find = fasyankes.findOne({
+  const find = puskesmas.findOne({
     where: { id },
   });
   return find;
