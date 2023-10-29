@@ -1,7 +1,7 @@
-const { penilaians, puskesmas } = require("../models");
+const { penilaian, puskesmas } = require("../models");
 
 const createNilai = async (data) => {
-  return await penilaians.create(data);
+  return await penilaian.create(data);
 };
 
 const puskId = async (id) => {
