@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.puskesmas, {
+        foreignKey: "id_pusk",
+      });
     }
   }
   penilaian.init({

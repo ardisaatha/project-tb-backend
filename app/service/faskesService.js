@@ -6,13 +6,16 @@ const getFasyankes = async () => {
   return await faskesRepository.getFasyankes();
 };
 
-const getFasyankesId = async (id) => {
-  const cases = await faskesRepository.getFasyankesId(id);
-  if (!cases) {
-    throw new ApiError(httpStatus.NOT_FOUND, "Fasyankes Not Found");
+const getPuskById = async (id) => {
+  const loc = await faskesRepository.getPuskById(id);
+  if (!loc) {
+    throw new ApiError(httpStatus.NOT_FOUND, "puskesmas Not Found");
+  }
+  if (!loc.penilaians || loc.penilaians.length === 0) {
+    throw new ApiError(httpStatus.BAD_REQUEST, `Puskesmas ${loc.nama_pusk} Belum Di Nilai`);
   } else {
-    return cases;
+    return loc;
   }
 };
 
-module.exports = { getFasyankes, getFasyankesId };
+module.exports = { getFasyankes, getPuskById };

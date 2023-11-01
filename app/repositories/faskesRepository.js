@@ -1,14 +1,18 @@
-const { puskesmas } = require("../models");
+const { puskesmas, penilaian } = require("../models");
 
 const getFasyankes = async () => {
   return await puskesmas.findAll()
 };
 
-const getFasyankesId = (id) => {
-  const find = puskesmas.findOne({
-    where: { id },
+const getPuskById = async (id) => {
+  const find = puskesmas.findByPk(id, {
+    include: [
+      {
+        model: penilaian,
+      },
+    ],
   });
   return find;
 };
 
-module.exports = { getFasyankes, getFasyankesId };
+module.exports = { getFasyankes, getPuskById };
