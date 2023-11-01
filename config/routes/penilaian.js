@@ -6,10 +6,10 @@ const upload  = require('../../utils/upload');
 
 // API
 router.post("/create", penilaian.createNilai);
-router.post('/upload', upload.single('file'), penilaian.uploadAndConvertToJSON);
 // router.get("/getUser", penilaian.getAllUser);
-// router.get("/getUser/:id", penilaian.getUserById);
+router.get("/getNilaiPusk/:id", penilaian.NilaiByIdPusk);
+router.put("/update/:id", penilaian.updateNilaiByIdPusk);
 // router.put("/updateAcc/:id", penilaian.updateUser);
-// router.delete("/deleteAcc/:id", penilaian.deleteUser);
+router.delete("/deleteNilai/:id", penilaian.deleteNilaiPusk);
 
 module.exports = router;

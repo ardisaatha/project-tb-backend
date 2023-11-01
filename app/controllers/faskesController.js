@@ -16,15 +16,15 @@ const getFasyankes = (req, res, next) => {
     });
 };
 
-const getFasyankesId = (req, res, next) => {
+const getPuskById = (req, res, next) => {
   faskesService
-    .getFasyankesId(req.params.id)
-    .then((cases) => {
+    .getPuskById(req.params.id)
+    .then((penilaian) => {
       res.status(200).json({
         status: "OK",
         message: "Success",
-        totalData: cases.length,
-        data: cases,
+        // totalData: pasien.pasiens.length,
+        data: penilaian,
       });
     })
     .catch((err) => {
@@ -32,4 +32,4 @@ const getFasyankesId = (req, res, next) => {
     });
 };
 
-module.exports = { getFasyankes, getFasyankesId };
+module.exports = { getFasyankes, getPuskById };

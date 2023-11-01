@@ -3,6 +3,6 @@ const faskes = require("../../app/controllers/faskesController")
 const Authentication = require("../../middlewares/authenticate")
 
 router.get("/", Authentication, faskes.getFasyankes)
-router.get("/:id", Authentication, faskes.getFasyankesId)
+router.get("/:id", Authentication, faskes.getPuskById)
 
 module.exports = router
