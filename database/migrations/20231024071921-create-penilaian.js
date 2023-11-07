@@ -15,10 +15,16 @@ module.exports = {
       kegiatan: {
         type: Sequelize.STRING
       },
-      sasaran: {
+      satuan: {
         type: Sequelize.STRING
       },
       target: {
+        type: Sequelize.STRING
+      },
+      sasaran: {
+        type: Sequelize.STRING
+      },
+      target_sasaran: {
         type: Sequelize.STRING
       },
       realisasi: {
@@ -29,6 +35,12 @@ module.exports = {
       },
       nilai: {
         type: Sequelize.STRING
+      },
+      bulan: {
+        type: Sequelize.STRING
+      },
+      tahun: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,

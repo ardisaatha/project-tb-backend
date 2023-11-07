@@ -18,13 +18,14 @@ const findAllUser = async () => {
 };
 
 const createUser = async (reqBody) => {
-  const { username, password } = reqBody;
+  const { username, role, password } = reqBody;
 
   // validasi data yang kosong
   if (!username)
     throw new ApiError(httpStatus.BAD_REQUEST, "username cannot be empty");
   if (!password)
     throw new ApiError(httpStatus.BAD_REQUEST, "password cannot be empty");
+  if (!role) throw new ApiError(httpStatus.BAD_REQUEST, "role cannot be empty");
 
   const user = await authRepository.findUser(username);
   if (user) {
@@ -34,6 +35,7 @@ const createUser = async (reqBody) => {
   const hash = encryptPassword(password);
   const createUser = {
     username,
+    role,
     password: hash,
   };
   // membuat user
@@ -51,53 +53,59 @@ const getUserById = async (id) => {
 };
 
 const updateUser = async (reqBody, id) => {
-    const { username, password } = reqBody;
-    if (!username){
+  const { username, password } = reqBody;
+  if (!username) {
     const hash = encryptPassword(password);
-      const updateUser = {
-        password: hash,
-      };
-      await adminRepository.updateUser(updateUser, id);
-      const getNewUser = await adminRepository.findUserById(id);
-  
-      return {
-        id: getNewUser.id,
-        username: getNewUser.username,
-        password: getNewUser.password,
-        role: getNewUser.role,
-        createdAt: getNewUser.createdAt,
-        updatedAt: getNewUser.updatedAt,
-      };
-    }else {
+    const updateUser = {
+      password: hash,
+    };
+    await adminRepository.updateUser(updateUser, id);
+    const getNewUser = await adminRepository.findUserById(id);
+
+    return {
+      id: getNewUser.id,
+      username: getNewUser.username,
+      password: getNewUser.password,
+      role: getNewUser.role,
+      createdAt: getNewUser.createdAt,
+      updatedAt: getNewUser.updatedAt,
+    };
+  } else {
     const user = await authRepository.findUser(username);
     if (user) {
       throw new ApiError(httpStatus.BAD_REQUEST, "username already exists");
     }
     const updateUser = {
-        username,
-      };
-      await adminRepository.updateUser(updateUser, id);
-      const getNewUser = await adminRepository.findUserById(id);
-  
-      return {
-        id: getNewUser.id,
-        username: getNewUser.username,
-        password: getNewUser.password,
-        role: getNewUser.role,
-        createdAt: getNewUser.createdAt,
-        updatedAt: getNewUser.updatedAt,
-      };
-    }
+      username,
+    };
+    await adminRepository.updateUser(updateUser, id);
+    const getNewUser = await adminRepository.findUserById(id);
+
+    return {
+      id: getNewUser.id,
+      username: getNewUser.username,
+      password: getNewUser.password,
+      role: getNewUser.role,
+      createdAt: getNewUser.createdAt,
+      updatedAt: getNewUser.updatedAt,
+    };
   }
+};
 
 const deleteUser = async (id) => {
-    const user = await adminRepository.findUserById(id);
-  
-    if (!user) {
-      throw new ApiError(httpStatus.NOT_FOUND, "user not found");
-    } else {
-      return await adminRepository.deleteUser(id);
-    }
-  };
+  const user = await adminRepository.findUserById(id);
 
-module.exports = { findAllUser, createUser, updateUser, deleteUser, getUserById };
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, "user not found");
+  } else {
+    return await adminRepository.deleteUser(id);
+  }
+};
+
+module.exports = {
+  findAllUser,
+  createUser,
+  updateUser,
+  deleteUser,
+  getUserById,
+};

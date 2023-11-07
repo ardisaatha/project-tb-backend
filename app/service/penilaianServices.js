@@ -4,8 +4,19 @@ const penilaianRepositories = require("../repositories/penilaianRepositroy");
 const puskesmasRepositories = require("../repositories/faskesRepository");
 
 const createNilai = async (reqBody) => {
-  const { id_pusk, kegiatan, sasaran, target, realisasi, capaian, nilai } =
-    reqBody;
+  const {
+    id_pusk,
+    kegiatan,
+    satuan,
+    target,
+    sasaran,
+    target_sasaran,
+    realisasi,
+    capaian,
+    nilai,
+    bulan,
+    tahun,
+  } = reqBody;
 
   const puskesmas = await puskesmasRepositories.getPuskById(id_pusk);
 
@@ -14,9 +25,13 @@ const createNilai = async (reqBody) => {
     throw new ApiError(httpStatus.BAD_REQUEST, "puskesmas not found");
   if (!kegiatan)
     throw new ApiError(httpStatus.BAD_REQUEST, "activity cannot be empty");
+  if (!satuan)
+    throw new ApiError(httpStatus.BAD_REQUEST, "satuan cannot be empty");
+  if (!target)
+    throw new ApiError(httpStatus.BAD_REQUEST, "target cannot be empty");
   if (!sasaran)
     throw new ApiError(httpStatus.BAD_REQUEST, "sasaran cannot be empty");
-  if (!target)
+  if (!target_sasaran)
     throw new ApiError(httpStatus.BAD_REQUEST, "target cannot be empty");
   if (!realisasi)
     throw new ApiError(httpStatus.BAD_REQUEST, "realisasi cannot be empty");
@@ -24,6 +39,10 @@ const createNilai = async (reqBody) => {
     throw new ApiError(httpStatus.BAD_REQUEST, "capaian cannot be empty");
   if (!nilai)
     throw new ApiError(httpStatus.BAD_REQUEST, "nilai cannot be empty");
+  if (!bulan)
+    throw new ApiError(httpStatus.BAD_REQUEST, "bulan cannot be empty");
+  if (!tahun)
+    throw new ApiError(httpStatus.BAD_REQUEST, "tahun cannot be empty");
   else {
     // const existingPenilaian = await penilaianRepositories.getPenilaianByIdPusk(
     //   id_pusk
@@ -48,11 +67,15 @@ const createNilai = async (reqBody) => {
     const newPenilaian = {
       id_pusk,
       kegiatan,
-      sasaran,
+      satuan,
       target,
+      sasaran,
+      target_sasaran,
       realisasi,
       capaian,
       nilai,
+      bulan,
+      tahun,
     };
     return await penilaianRepositories.createNilai(newPenilaian);
   }
@@ -66,8 +89,17 @@ const getNilaiByIdPusk = async (id) => {
   // validasi data yang kosong
   if (!puskesmas)
     throw new ApiError(httpStatus.NOT_FOUND, "puskesmas not found");
-  if (result.length === 0) {
-    throw new ApiError(httpStatus.NOT_FOUND, "Puskesmas Belum Di Nilai");
+  if (!puskesmas.penilaians || puskesmas.penilaians.length === 0) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      `Puskesmas ${puskesmas.nama_pusk} Belum Di Nilai`
+    );
+  }
+  if (!result) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      `Bulan ini Belum Di Nilai`
+    );
   } else {
     return result;
   }
