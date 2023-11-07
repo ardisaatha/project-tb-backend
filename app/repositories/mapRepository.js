@@ -2,6 +2,7 @@ const {
   pasiens,
   pasienb,
   kelurahan,
+  fasyankes,
   puskesmas,
   sequelize,
   survei,
@@ -141,7 +142,7 @@ const mapId = async (id) => {
 };
 
 const mappingFaskes = async () => {
-  return await puskesmas.findAll();
+  return await fasyankes.findAll();
 };
 
 module.exports = { mapping, mapId, mappingFaskes };
