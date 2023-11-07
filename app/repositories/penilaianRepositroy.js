@@ -7,10 +7,30 @@ const createNilai = async (data) => {
 const getPenilaianByIdPusk = async (id_pusk) => {
   // Implementasikan logika untuk mengambil penilaian berdasarkan id_pusk dari penyimpanan data (misalnya, database)
   // Gunakan sesuai dengan teknologi penyimpanan data yang Anda gunakan
-  const result = await penilaian.findAll({
-    where: { id_pusk },
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  const currentMonth = today.toLocaleString("default", { month: "long" });
+  const find = puskesmas.findByPk(id_pusk, {
+    include: [
+      {
+        model: penilaian,
+        where: {
+          tahun: currentYear,
+          bulan: currentMonth,
+        },
+      },
+    ],
   });
-  return result;
+  return find;
+  // const result = await penilaian.findAll({
+  //   where: { id_pusk },
+  // });
+  // return result;
+};
+
+const getPuskById = async (id) => {
+  // console.log(currentYear)
+  // console.log(currentMonth)
 };
 
 const updatePenilaianPusk = async (reqBody, id_pusk) => {
