@@ -9,7 +9,26 @@ const getPenilaianByIdPusk = async (id_pusk) => {
   // Gunakan sesuai dengan teknologi penyimpanan data yang Anda gunakan
   const today = new Date();
   const currentYear = today.getFullYear();
-  const currentMonth = today.toLocaleString("default", { month: "long" });
+   const currentMonthNumber = today.getMonth();
+  const getIndonesianMonth = (monthNumber) => {
+    const indonesianMonths = [
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember",
+    ];
+    return indonesianMonths[monthNumber];
+  };
+
+  const currentMonth = getIndonesianMonth(currentMonthNumber);
   const find = puskesmas.findByPk(id_pusk, {
     include: [
       {
